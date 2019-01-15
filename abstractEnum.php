@@ -93,3 +93,5 @@ if (Utensil::steakKnife() == Utensil::steakKnife())
     echo "Utensil::steakKnife() == Utensil::steakKnife()\n";
 if (Utensil::spoon() == Utensil::spoon())
     echo "Utensil::spoon() == Utensil::spoon()\n";
+
+print_r(get_class(Utensil::steakKnife()));
