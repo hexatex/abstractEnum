@@ -1,12 +1,13 @@
 {
     "name": "hexatex/abstractenum",
     "description": "An abstract class that simulates phps missing enum",
-    "license": "GNU",
+    "type": "library",
     "authors": [
         {
             "name": "Cory Baumer",
             "email": "cory.j.baumer@gmail.com"
         }
     ],
+    "minimum-stability": "stable",
     "require": {}
 }
