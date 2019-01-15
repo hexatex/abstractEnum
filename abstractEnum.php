@@ -6,7 +6,7 @@ use ReflectionClass;
 use Exception;
 use InvalidArgumentException;
 
-abstract class abstractEnum
+abstract class abstractEnum /* Examples at the bottom */
 {
     private $className;
     private $enumName; /* Utensil */
@@ -73,6 +73,7 @@ abstract class abstractEnum
     }
 }
 
+/*
 class Utensil extends abstractEnum
 {
     const spoon = 2;
@@ -95,3 +96,5 @@ if (Utensil::spoon() == Utensil::spoon())
     echo "Utensil::spoon() == Utensil::spoon()\n";
 
 print_r(get_class(Utensil::steakKnife()));
+
+*/
