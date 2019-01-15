@@ -28,9 +28,13 @@ abstract class abstractEnum /* Examples at the bottom */
     /*
      * Accessors
      */
-    public function getValue(): int
+    public function getValue() /* : mixed */
     {
-        return $this->key;
+        if ($this->key) {
+            return $this->key;
+        } else {
+            return "{$this->className}::{$this->enumOption}";
+        }
     }
 
     /*
@@ -39,10 +43,6 @@ abstract class abstractEnum /* Examples at the bottom */
     static public function exists(string $enumOption)
     {
         $abstractEnum = new static($enumOption);
-
-        if ($abstractEnum->key && !is_int($abstractEnum->key)) {
-            throw new Exception("The constant in {$abstractEnum->className}::{$abstractEnum->enumOption} must be an integer!");
-        }
 
         return $abstractEnum;
     }
@@ -61,13 +61,13 @@ abstract class abstractEnum /* Examples at the bottom */
     /*
      * Magic Methods
      */
-    static public function __callStatic($enumOption, $arguments)
+    static public function __callStatic($enumOption, $arguments): abstractEnum
     {
         $abstractEnum = self::existsOrFail($enumOption);
         return $abstractEnum;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string)$this->getValue();
     }
@@ -78,6 +78,7 @@ class Utensil extends abstractEnum
 {
     const spoon = 2;
     const steakKnife = 3;
+    const stringCheese = 'lol string cheese isnt a Utensil. What>??!!';
 }
 
 // Utensil::existsOrFail('asdBbb');
@@ -96,5 +97,6 @@ if (Utensil::spoon() == Utensil::spoon())
     echo "Utensil::spoon() == Utensil::spoon()\n";
 
 print_r(get_class(Utensil::steakKnife()));
-
+echo "\n";
+echo Utensil::stringCheese();
 */
