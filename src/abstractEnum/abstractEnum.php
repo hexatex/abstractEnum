@@ -1,6 +1,6 @@
 <?php
 
-namespace Hexatex;
+namespace Hexatex\abstractEnum;
 
 use ReflectionClass;
 use Exception;
