@@ -1,12 +1,12 @@
 <?php
 
-namespace Hexatex\abstractEnum;
+namespace Hexatex\AbstractEnum;
 
 use ReflectionClass;
 use Exception;
 use InvalidArgumentException;
 
-abstract class abstractEnum /* Examples at the bottom */
+abstract class AbstractEnum /* Examples at the bottom */
 {
     private $className;
     private $enumName; /* Utensil */
