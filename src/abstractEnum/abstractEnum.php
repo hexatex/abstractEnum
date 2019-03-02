@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 abstract class AbstractEnum /* Examples at the bottom */
 {
-    private $className;
+    private $className; /* Acme\Utensil */
     private $enumName; /* Utensil */
     private $enumOption; /* fork, steakKnife */
     private $key; /* 1 */
@@ -16,7 +16,7 @@ abstract class AbstractEnum /* Examples at the bottom */
     public function __construct(string $enumOption)
     {
         $reflectionClass = new ReflectionClass(get_called_class());
-        $this->className = $reflectionClass->getName(); /* Acme\Utensil */
+        $this->className = $reflectionClass->getName();
         $this->enumName = $reflectionClass->getShortName();
         $this->enumOption = $enumOption;
 
@@ -73,30 +73,70 @@ abstract class AbstractEnum /* Examples at the bottom */
     }
 }
 
-/*
-class Utensil extends abstractEnum
+
+class UtensilType extends abstractEnum
 {
     const spoon = 2;
     const steakKnife = 3;
-    const stringCheese = 'lol string cheese isnt a Utensil. What>??!!';
+    // Or namespace them like this:
+    const fork = 'UtensilType@fork';
+    // ...Although if you're storing them in a database consider using numbers.
 }
 
-// Utensil::existsOrFail('asdBbb');
+interface IUtensil
+{
+    public function getType(): UtensilType;
+}
 
-echo "Utensil::spoon()";
-print_r(Utensil::spoon());
+abstract class Utensil implements IUtensil
+{
+    //...
+}
 
-echo "echo Utensil::spoon()\n";
-echo Utensil::spoon() . "\n";
+class Spoon extends Utensil
+{
+    public function getType(): UtensilType
+    {
+        return UtensilType::spoon();
+    }
+}
 
-if (Utensil::spoon() == Utensil::steakKnife())
-    echo "Utensil::spoon() == Utensil::steakKnife()\n";
-if (Utensil::steakKnife() == Utensil::steakKnife())
-    echo "Utensil::steakKnife() == Utensil::steakKnife()\n";
-if (Utensil::spoon() == Utensil::spoon())
-    echo "Utensil::spoon() == Utensil::spoon()\n";
+class Drawer
+{
+    // ...
+    public function addUtensil(Utensil $utensil) {
+        switch ($utensil->getType()) {
+            case UtensilType::fork():
+                // polish prongs...
+                // place in fork slot
+                break;
+            case UtensilType::spoon():
+                // Shine spoon on shirt
+                // Place in spoon slot
+                echo "Oooooo spoon so shiny";
+                break;
+        }
+    }
+}
 
-print_r(get_class(Utensil::steakKnife()));
-echo "\n";
-echo Utensil::stringCheese();
-*/
+$drawer = new Drawer;
+$spoon = new Spoon;
+$drawer->addUtensil($spoon);
+
+// $drawer->grabUtensil(UtensilType::spoon());
+
+// // UtensilType::existsOrFail('salidKnife'); // throws exception
+// if (UtensilType::exists('salidKnife') == false) {
+//     echo "Salad knives don't exist. \n";
+// }
+
+// print_r(UtensilType::spoon());
+
+// echo "UtensilType::spoon()\n";
+
+// if (UtensilType::spoon() == UtensilType::steakKnife()) // False
+//     echo "UtensilType::spoon() == UtensilType::steakKnife()\n";
+// if (UtensilType::steakKnife() == UtensilType::steakKnife()) // True
+//     echo "UtensilType::steakKnife() == UtensilType::steakKnife()\n";
+
+// print_r(get_class(UtensilType::steakKnife()));
