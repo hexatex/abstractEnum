@@ -73,7 +73,7 @@ abstract class AbstractEnum /* Examples at the bottom */
     }
 }
 
-
+/*
 class UtensilType extends abstractEnum
 {
     const spoon = 2;
